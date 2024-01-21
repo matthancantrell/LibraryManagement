@@ -5,12 +5,12 @@ from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
 from management.models import MyUser, Book, Img
-from django.core.urlresolvers import reverse
+from django.urls import reverse
 from management.utils import permission_check
 
 
 def index(request):
-    user = request.user if request.user.is_authenticated() else None
+    user = request.user if request.user.is_authenticated else None
     content = {
         'active_menu': 'homepage',
         'user': user,
@@ -19,7 +19,7 @@ def index(request):
 
 
 def signup(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('homepage'))
     state = None
     if request.method == 'POST':
@@ -49,7 +49,7 @@ def signup(request):
 
 
 def login(request):
-    if request.user.is_authenticated():
+    if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('homepage'))
     state = None
     if request.method == 'POST':
@@ -124,7 +124,7 @@ def add_book(request):
 
 
 def view_book_list(request):
-    user = request.user if request.user.is_authenticated() else None
+    user = request.user if request.user.is_authenticated else None
     category_list = Book.objects.values_list('category', flat=True).distinct()
     query_category = request.GET.get('category', 'all')
     if (not query_category) or Book.objects.filter(category=query_category).count() is 0:
@@ -157,7 +157,7 @@ def view_book_list(request):
 
 
 def detail(request):
-    user = request.user if request.user.is_authenticated() else None
+    user = request.user if request.user.is_authenticated else None
     book_id = request.GET.get('id', '')
     if book_id == '':
         return HttpResponseRedirect(reverse('view_book_list'))

@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 
 
 class MyUser(models.Model):
-    user = models.OneToOneField(User)
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
     nickname = models.CharField(max_length=16)
     permission = models.IntegerField(default=1)
 
@@ -31,7 +31,7 @@ class Img(models.Model):
     name = models.CharField(max_length=128)
     description = models.TextField()
     img = models.ImageField(upload_to='image/%Y/%m/%d/')
-    book = models.ForeignKey(Book)
+    book = models.ForeignKey(Book, on_delete=models.CASCADE)
 
     class META:
         ordering = ['name']
