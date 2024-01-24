@@ -1,6 +1,6 @@
 {% extends "management/base.html" %}
 {% load static %}
-{% block title %}查看图书{% endblock %}
+{% block title %}View Books{% endblock %}
 
 {% block content %}
 
@@ -31,16 +31,16 @@
                             </a>
                         </div>
                     {% else %}
-                        <p class="text-center">暂无图片</p>
+                        <p class="text-center">No Pictures yet.</p>
                     {% endif %}
                 </div>
                 <div class="col-md-6 col-md-offset-1">
                     <h2 class="text-center">{{ book.name }}</h2>
                     <br>
-                    <h3>作者：{{ book.author }}</h3>
-                    <h3>类别：{{ book.category }}</h3>
-                    <h3>出版日期：{{ book.publish_date|date:"Y-m-d" }}</h3>
-                    <h3>价格：{{ book.price|floatformat:2 }}</h3>
+                    <h3>Author: {{ book.author }}</h3>
+                    <h3>Genre：{{ book.category }}</h3>
+                    <h3>Publication Date：{{ book.publish_date|date:"Y-m-d" }}</h3>
+                    <h3>Price：{{ book.price|floatformat:2 }}</h3>
                 </div>
             </div>
         </div>
