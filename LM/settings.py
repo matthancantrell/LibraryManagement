@@ -71,7 +71,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'zh-hans'
+LANGUAGE_CODE = 'en-US'
 
 TIME_ZONE = 'Asia/Harbin'
 
