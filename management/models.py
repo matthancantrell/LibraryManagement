@@ -18,7 +18,7 @@ class Book(models.Model):
     price = models.FloatField()
     author = models.CharField(max_length=128)
     publish_date = models.DateField()
-    category = models.CharField(max_length=128)
+    genre = models.CharField(max_length=128)
 
     class META:
         ordering = ['name']

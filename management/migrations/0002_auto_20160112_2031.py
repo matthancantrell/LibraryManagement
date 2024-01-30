@@ -14,7 +14,7 @@ class Migration(migrations.Migration):
         migrations.RenameField(
                 model_name='book',
                 old_name='typ',
-                new_name='category',
+                new_name='genre',
         ),
         migrations.RenameField(
                 model_name='book',

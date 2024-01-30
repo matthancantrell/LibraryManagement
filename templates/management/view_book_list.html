@@ -12,10 +12,10 @@
                         <a href="{% url 'view_book_list' %}" class="list-group-item" id="id_category_all">
                             All Books
                         </a>
-                        {% for category in category_list %}
-                            <a href="{% url 'view_book_list' %}?category={{ category }}" class="list-group-item"
-                               id="id_category_{{ category }}">
-                                {{ category }}
+                        {% for genre in category_list %}
+                            <a href="{% url 'view_book_list' %}?genre={{ genre }}" class="list-group-item"
+                               id="id_category_{{ genre }}">
+                                {{ genre }}
                             </a>
                         {% endfor %}
                     </div>
@@ -60,7 +60,7 @@
                                 <td><a href="{% url 'detail' %}?id={{ book.id }}">{{ book.name }}</a></td>
                                 <td>{{ book.author }}</td>
                                 <td>{{ book.publish_date|date:"Y-m-d" }}</td>
-                                <td>{{ book.price|floatformat:2 }}</td>
+                                <td>${{ book.price|floatformat:2 }}</td>
                             </tr>
                         {% empty %}
                             <tr>

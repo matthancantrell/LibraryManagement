@@ -109,7 +109,7 @@ def add_book(request):
         new_book = Book(
                 name=request.POST.get('name', ''),
                 author=request.POST.get('author', ''),
-                category=request.POST.get('category', ''),
+                genre=request.POST.get('genre', ''),
                 price=request.POST.get('price', 0),
                 publish_date=request.POST.get('publish_date', '')
         )
@@ -125,13 +125,13 @@ def add_book(request):
 
 def view_book_list(request):
     user = request.user if request.user.is_authenticated else None
-    category_list = Book.objects.values_list('category', flat=True).distinct()
-    query_category = request.GET.get('category', 'all')
-    if (not query_category) or Book.objects.filter(category=query_category).count() is 0:
+    category_list = Book.objects.values_list('genre', flat=True).distinct()
+    query_category = request.GET.get('genre', 'all')
+    if (not query_category) or Book.objects.filter(genre=query_category).count() is 0:
         query_category = 'all'
         book_list = Book.objects.all()
     else:
-        book_list = Book.objects.filter(category=query_category)
+        book_list = Book.objects.filter(genre=query_category)
 
     if request.method == 'POST':
         keyword = request.POST.get('keyword', '')
