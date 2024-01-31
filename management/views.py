@@ -8,7 +8,7 @@ from management.models import MyUser, Book, Img
 from django.urls import reverse
 from management.utils import permission_check
 
-
+#region Index
 def index(request):
     user = request.user if request.user.is_authenticated else None
     content = {
@@ -16,8 +16,9 @@ def index(request):
         'user': user,
     }
     return render(request, 'management/index.html', content)
+#endregion
 
-
+#region Signup
 def signup(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('homepage'))
@@ -46,8 +47,9 @@ def signup(request):
         'user': None,
     }
     return render(request, 'management/signup.html', content)
+#endregion
 
-
+#region Login
 def login(request):
     if request.user.is_authenticated:
         return HttpResponseRedirect(reverse('homepage'))
@@ -67,13 +69,15 @@ def login(request):
         'user': None
     }
     return render(request, 'management/login.html', content)
+#endregion
 
-
+#region Logout
 def logout(request):
     auth.logout(request)
     return HttpResponseRedirect(reverse('homepage'))
+#endregion
 
-
+#region Set Password (Login Required)
 @login_required
 def set_password(request):
     user = request.user
@@ -99,8 +103,9 @@ def set_password(request):
         'state': state,
     }
     return render(request, 'management/set_password.html', content)
+#endregion
 
-
+#region Add Book (Permission Required)
 @user_passes_test(permission_check)
 def add_book(request):
     user = request.user
@@ -121,8 +126,9 @@ def add_book(request):
         'state': state,
     }
     return render(request, 'management/add_book.html', content)
+#endregion
 
-
+#region <>
 def view_book_list(request):
     user = request.user if request.user.is_authenticated else None
     category_list = Book.objects.values_list('genre', flat=True).distinct()
@@ -154,8 +160,10 @@ def view_book_list(request):
         'book_list': book_list,
     }
     return render(request, 'management/view_book_list.html', content)
+#endregion
 
 
+#region Detail
 def detail(request):
     user = request.user if request.user.is_authenticated else None
     book_id = request.GET.get('id', '')
@@ -171,8 +179,9 @@ def detail(request):
         'book': book,
     }
     return render(request, 'management/detail.html', content)
+#endregion
 
-
+#region Add Image (Permission Required)
 @user_passes_test(permission_check)
 def add_img(request):
     user = request.user
@@ -198,3 +207,4 @@ def add_img(request):
         'active_menu': 'add_img',
     }
     return render(request, 'management/add_img.html', content)
+#endregion
