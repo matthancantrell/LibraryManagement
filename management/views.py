@@ -4,7 +4,7 @@ from django.contrib.auth.decorators import user_passes_test, login_required
 from django.contrib.auth.models import User
 from django.contrib import auth
 from django.core.paginator import Paginator, EmptyPage, PageNotAnInteger
-from management.models import MyUser, Book, Img
+from management.models import MyUser, Book, Img, Organization, Library
 from django.urls import reverse
 from management.utils import permission_check
 
@@ -159,6 +159,12 @@ def view_book_list(request):
         'book_list': book_list,
     }
     return render(request, 'management/view_book_list.html', content)
+#endregion
+
+#region Organization List
+def organization_list(request):
+    organizations = Organization.objects.all()
+    return render(request, 'management/organizations.html', {'organizations': organizations})
 #endregion
 
 #region Detail

@@ -2,6 +2,7 @@ from django.urls import path, re_path
 from management import views
 
 urlpatterns = [
+    # path('', views.organization_list, name='organizations'),
     re_path(r'^$', views.index, name='homepage'),
     re_path(r'^signup/$', views.signup, name='signup'),
     re_path(r'^login/$', views.login, name='login'),
