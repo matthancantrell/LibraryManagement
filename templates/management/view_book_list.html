@@ -9,18 +9,18 @@
             <div class="col-md-10 col-md-offset-1">
                 <div class="col-md-2">
                     <div class="list-group">
-                        <a href="{% url 'view_book_list' %}" class="list-group-item" id="id_category_all">
+                        <a href="{% url 'view_book_list' %}" class="list-group-item" id="id_genre_all">
                             All Books
                         </a>
-                        {% for genre in category_list %}
+                        {% for genre in genre_list %}
                             <a href="{% url 'view_book_list' %}?genre={{ genre }}" class="list-group-item"
-                               id="id_category_{{ genre }}">
+                               id="id_genre_{{ genre }}">
                                 {{ genre }}
                             </a>
                         {% endfor %}
                     </div>
                     <script type="text/javascript">
-                        $('#id_category_{{ query_category }}').addClass("active");
+                        $('#id_genre_{{ query_genre }}').addClass("active");
                     </script>
                 </div>
                 <div class="col-md-9 col-md-offset-1">
@@ -50,7 +50,6 @@
                             <th>Book Title</th>
                             <th>Author</th>
                             <th>Publication Date</th>
-                            <th>Pricing</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -60,7 +59,6 @@
                                 <td><a href="{% url 'detail' %}?id={{ book.id }}">{{ book.name }}</a></td>
                                 <td>{{ book.author }}</td>
                                 <td>{{ book.publish_date|date:"Y-m-d" }}</td>
-                                <td>${{ book.price|floatformat:2 }}</td>
                             </tr>
                         {% empty %}
                             <tr>
@@ -73,7 +71,7 @@
                         <ul class="pager">
                             {% if book_list.has_previous %}
                                 <li class="previous"><a
-                                        href="?typ={{ query_category }}&page={{ book_list.previous_page_number }}">Previous Page</a>
+                                        href="?typ={{ query_genre }}&page={{ book_list.previous_page_number }}">Previous Page</a>
                                 </li>
                             {% else %}
                                 <li class="previous disabled"><a href="#">Previous Page</a></li>
@@ -81,7 +79,7 @@
                             No. {{ book_list.number }} / {{ book_list.paginator.num_pages }}Page
                             {% if book_list.has_next %}
                                 <li class="next"><a
-                                        href="?typ={{ query_category }}&page={{ book_list.next_page_number }}">Next Page</a>
+                                        href="?typ={{ query_genre }}&page={{ book_list.next_page_number }}">Next Page</a>
                                 </li>
                             {% else %}
                                 <li class="next disabled"><a href="#">Next Page</a></li>

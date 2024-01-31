@@ -115,7 +115,6 @@ def add_book(request):
                 name=request.POST.get('name', ''),
                 author=request.POST.get('author', ''),
                 genre=request.POST.get('genre', ''),
-                price=request.POST.get('price', 0),
                 publish_date=request.POST.get('publish_date', '')
         )
         new_book.save()
@@ -128,21 +127,21 @@ def add_book(request):
     return render(request, 'management/add_book.html', content)
 #endregion
 
-#region <>
+#region View Book List
 def view_book_list(request):
     user = request.user if request.user.is_authenticated else None
-    category_list = Book.objects.values_list('genre', flat=True).distinct()
-    query_category = request.GET.get('genre', 'all')
-    if (not query_category) or Book.objects.filter(genre=query_category).count() is 0:
-        query_category = 'all'
+    genre_list = Book.objects.values_list('genre', flat=True).distinct()
+    query_genre = request.GET.get('genre', 'all')
+    if (not query_genre) or Book.objects.filter(genre=query_genre).count() is 0:
+        query_genre = 'all'
         book_list = Book.objects.all()
     else:
-        book_list = Book.objects.filter(genre=query_category)
+        book_list = Book.objects.filter(genre=query_genre)
 
     if request.method == 'POST':
         keyword = request.POST.get('keyword', '')
         book_list = Book.objects.filter(name__contains=keyword)
-        query_category = 'all'
+        query_genre = 'all'
 
     paginator = Paginator(book_list, 5)
     page = request.GET.get('page')
@@ -155,13 +154,12 @@ def view_book_list(request):
     content = {
         'user': user,
         'active_menu': 'view_book',
-        'category_list': category_list,
-        'query_category': query_category,
+        'genre_list': genre_list,
+        'query_genre': query_genre,
         'book_list': book_list,
     }
     return render(request, 'management/view_book_list.html', content)
 #endregion
-
 
 #region Detail
 def detail(request):
