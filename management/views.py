@@ -74,7 +74,7 @@ def login(request):
 #region Logout
 def logout(request):
     auth.logout(request)
-    return HttpResponseRedirect(reverse('homepage'))
+    return HttpResponseRedirect(reverse('view_organization_list'))
 #endregion
 
 #region Set Password (Login Required)
@@ -226,8 +226,12 @@ def view_book_list(request):
 
 #region Organization List
 def view_organization_list(request):
+    user = None
+    if request.user != None:
+        user = request.user
     organizations = Organization.objects.all()
     content = {
+        'user': user,
         'organization_list': organizations,
         'query_organization': request.GET.get('organization', None),
     }

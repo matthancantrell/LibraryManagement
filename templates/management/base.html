@@ -47,7 +47,7 @@
                 {% endif %}
             </ul>
             <ul class="nav navbar-nav navbar-right">
-                {% if user %}
+                {% if user.is_authenticated %}
                     <li><p class="navbar-text">Welcome&nbsp;&nbsp;<span id="base_name">{{ user.myuser.nickname }}</span></p>
                     </li>
                     <li><a href="{% url 'logout' %}">Logout</a></li>
@@ -64,16 +64,19 @@
 <!-- header -->
 <header class="jumbotron subhead" id="header-base">
     <div class="container">
-        {% if library_name == ' ' %}
+        {% if library_name %}
+            <h1>{{ library_name }}</h1>
+        {% else %}
             {% if organization_name %}
-            <h1>{{ organization_name }}</h1>
-            {% if organization_description %}
-            <h3>&emsp;&emsp;{{ organization_description }}</h3>
+                <h1>{{ organization_name }}</h1>
             {% endif %}
-            {% else %}
+            {% if organization_description %}
+                <h3>&emsp;&emsp;{{ organization_description }}</h3>
+            {% endif %}
+        {% endif %}
+        {% if library_name == None and organization_name == None %}
             <h1>Library Management System</h1>
             <h3>&emsp;&emsp;Knowledge Alters Your Fate</h3>
-            {% endif %}
         {% endif %}
     </div>
 </header>
