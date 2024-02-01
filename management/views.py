@@ -111,18 +111,25 @@ def add_book(request):
     user = request.user
     state = None
     if request.method == 'POST':
+        library_id = request.POST.get('library')
+        library = Library.objects.get(pk=library_id)
         new_book = Book(
                 name=request.POST.get('name', ''),
                 author=request.POST.get('author', ''),
                 genre=request.POST.get('genre', ''),
-                publish_date=request.POST.get('publish_date', '')
+                publish_date=request.POST.get('publish_date', ''),
+                library=library
         )
         new_book.save()
         state = 'success'
+
+    libraries = Library.objects.all()
+
     content = {
         'user': user,
         'active_menu': 'add_book',
         'state': state,
+        'libraries': libraries
     }
     return render(request, 'management/add_book.html', content)
 #endregion
