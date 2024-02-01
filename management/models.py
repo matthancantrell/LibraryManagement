@@ -31,6 +31,7 @@ class Book(models.Model):
     author = models.CharField(max_length=128)
     publish_date = models.DateField()
     genre = models.CharField(max_length=128)
+    library = models.ForeignKey(Library, on_delete=models.CASCADE, related_name='books')
 
     class META:
         ordering = ['name']
